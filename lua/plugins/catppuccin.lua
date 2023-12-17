@@ -11,8 +11,9 @@ return {
                     cmp = true,
                     gitsigns = true,
                     nvimtree = true,
-                    telescope = true,
-                    notify = true,
+                    telescope = {
+                        enabled = true,
+                    },
                     mini = false,
                     indent_blankline = {
                         enabled = true,
@@ -20,6 +21,7 @@ return {
                         colored_indent_levels = false,
                     },
 
+                    mason = true,
                     harpoon = true,
                     leap = true,
                     which_key = true
