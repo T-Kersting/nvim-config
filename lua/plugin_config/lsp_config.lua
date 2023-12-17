@@ -117,6 +117,7 @@ vim.diagnostic.config({
 
 
 -- Autoformatting
+-- Taken from kickstart-nvim
 
 -- Switch for controlling whether you want autoformatting.
 --  Use :KickstartFormatToggle to toggle autoformatting on or off
