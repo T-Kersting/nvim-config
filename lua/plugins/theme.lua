@@ -14,6 +14,11 @@ return {
                     telescope = true,
                     notify = true,
                     mini = false,
+                    indent_blankline = {
+                        enabled = true,
+                        scope_color = "sky",
+                        colored_indent_levels = false,
+                    },
 
                     harpoon = true,
                     leap = true,

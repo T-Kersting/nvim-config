@@ -150,6 +150,16 @@ return {
     {
         'lukas-reineke/indent-blankline.nvim',
         main = "ibl",
+        opts = {
+            indent = {
+                char = "┊"
+            },
+            scope = {
+                show_start = false,
+                show_end = false,
+                char = "│"
+            }
+        },
     },
 
     {
@@ -202,22 +212,19 @@ return {
     },
 
     {
-        'rcarriga/nvim-notify',
-        config = function()
-            local notify = require('notify')
-            notify.setup {
-                background_colour = "#000000",
-                top_down = false,
+        "j-hui/fidget.nvim",
+        opts = {
+            notification = {
+                window = {
+                    winblend = 0,
+                },
+                override_vim_notify = true,
             }
-            vim.notify = notify
-        end
+        }
     },
 
     {
         "petertriho/nvim-scrollbar",
-        config = function()
-            local scrollbar = require('scrollbar')
-            scrollbar.setup()
-        end
+        opts = {}
     }
 }
