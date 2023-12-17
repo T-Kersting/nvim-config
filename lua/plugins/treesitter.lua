@@ -21,11 +21,9 @@ return {
                 },
                 sync_install = false,
                 auto_install = true,
-                ignore_install = {},
                 highlight = {
                     enable = true,
-                },
-                modules = {},
+                }
             }
         end
     }

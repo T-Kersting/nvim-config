@@ -2,12 +2,12 @@ return {
     {
         "ThePrimeagen/harpoon",
         keys = {
-            { "<M-s>", nil, desc = "Harpoon: Set Mark"},
-            { "<M-t>", nil, desc = "Harpoon: Toggle Quick Menu"},
-            { "<M-n>", nil, desc = "Harpoon: Navigate to File 1"},
-            { "<M-e>", nil, desc = "Harpoon: Navigate to File 2"},
-            { "<M-i>", nil, desc = "Harpoon: Navigate to File 3"},
-            { "<M-o>", nil, desc = "Harpoon: Navigate to File 4"},
+            { "<M-s>", nil, desc = "Harpoon: Set Mark" },
+            { "<M-t>", nil, desc = "Harpoon: Toggle Quick Menu" },
+            { "<M-n>", nil, desc = "Harpoon: Navigate to File 1" },
+            { "<M-e>", nil, desc = "Harpoon: Navigate to File 2" },
+            { "<M-i>", nil, desc = "Harpoon: Navigate to File 3" },
+            { "<M-o>", nil, desc = "Harpoon: Navigate to File 4" },
         },
         config = function()
             local mark = require("harpoon.mark")
