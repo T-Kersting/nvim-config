@@ -4,8 +4,8 @@ local signs = {
     info = "",
     hint = "󰌵",
 
-    left = "",
-    right = "",
+    left = "",
+    right = "",
 }
 
 return signs

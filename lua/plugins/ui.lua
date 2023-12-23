@@ -1,4 +1,7 @@
 return {
+    -- highlight the word under the cursor
+    { "RRethy/vim-illuminate" },
+
     {
         "nvim-tree/nvim-tree.lua",
         version = "*",
@@ -74,13 +77,14 @@ return {
     {
         "b0o/incline.nvim",
         config = function()
-            local mocha = require("catppuccin.palettes").get_palette "mocha"
-            local bgcolor = mocha.surface0
-            local inactive_font_color = mocha.overlay0
-
             local signs = require("core.signs")
+            local mocha = require("catppuccin.palettes").get_palette "mocha"
 
-            local function get_diagnostic_label(props)
+            local inactive_font_color = mocha.overlay0
+            local active_font_color = mocha.subtext1
+
+            -- helper function to create diagnostic label
+            local function insert_diagnostic_label(props, render_items)
                 local icons = {
                     Error = signs.error,
                     Warn = signs.warn,
@@ -88,60 +92,54 @@ return {
                     Hint = signs.hint,
                 }
 
-                local label = {}
                 for severity, icon in pairs(icons) do
-                    local n = #vim.diagnostic.get(props.buf, {
-                        severity = vim.diagnostic.severity
-                            [string.upper(severity)]
-                    })
+                    local n = #vim.diagnostic.get(
+                        props.buf,
+                        {
+                            severity = vim.diagnostic.severity
+                                [string.upper(severity)]
+                        }
+                    )
                     if n > 0 then
                         local fg = "#" ..
-                            string.format("%06x",
-                                vim.api.nvim_get_hl_by_name("DiagnosticSign" .. severity, true)["foreground"])
-                        table.insert(label, { icon .. " " .. n .. " ", guifg = fg, guibg = bgcolor })
+                            string.format(
+                                "%06x",
+                                vim.api.nvim_get_hl_by_name("DiagnosticSign" .. severity, true)["foreground"]
+                            )
+                        table.insert(render_items, { icon .. " " .. n .. " ", guifg = fg })
                     end
                 end
-                return label
+                return render_items
             end
 
             require("incline").setup({
                 debounce_threshold = { falling = 100, rising = 25 },
                 render = function(props)
+                    -- Hide incline when cursor is in first row
                     if props.focused and vim.api.nvim_win_get_cursor(props.win)[1] == 1 then
                         return {}
                     end
 
-                    local bufname = vim.api.nvim_buf_get_name(props.buf)
-                    local filename = vim.fn.fnamemodify(bufname, ":t")
-                    local diagnostics = get_diagnostic_label(props)
+                    local buffer_name = vim.api.nvim_buf_get_name(props.buf)
+                    local filename = vim.fn.fnamemodify(buffer_name, ":t")
                     local modified = vim.api.nvim_buf_get_option(props.buf, "modified") and "bold,italic" or "None"
-                    local filetype_icon, color = require("nvim-web-devicons").get_icon_color(filename)
+                    local font_color = props.focused and active_font_color or inactive_font_color
+                    local filetype_icon, icon_color = require("nvim-web-devicons").get_icon_color(filename)
 
-                    local filenamesettings = { filename, gui = modified, guibg = bgcolor }
-                    if not props.focused then
-                        filenamesettings["guifg"] = inactive_font_color
-                    end
-
-                    local buffer = {
-                        { filetype_icon, guifg = color,  guibg = bgcolor },
-                        { " ",           guibg = bgcolor },
-                        filenamesettings,
+                    local render_items = {
+                        { "󰄽 ", guifg = font_color },
                     }
 
-                    if #diagnostics > 0 then
-                        table.insert(diagnostics, { "| ", guifg = "grey", guibg = bgcolor })
-                    end
-                    for _, buffer_ in ipairs(buffer) do
-                        table.insert(diagnostics, buffer_)
+                    render_items = insert_diagnostic_label(props, render_items)
+                    if #render_items > 1 then
+                        table.insert(render_items, { "| ", guifg = font_color })
                     end
 
-                    local signs = require("core.signs")
-                    table.insert(diagnostics, 1, { signs.left, guifg = bgcolor })
-                    table.insert(diagnostics, 2, { " ", guibg = bgcolor })
-                    table.insert(diagnostics, { " ", guibg = bgcolor })
-                    table.insert(diagnostics, { signs.right, guifg = bgcolor })
+                    table.insert(render_items, { filetype_icon, guifg = icon_color })
+                    table.insert(render_items, { " " .. filename, guifg = font_color, gui = modified })
+                    table.insert(render_items, { " 󰄾", guifg = font_color })
 
-                    return diagnostics
+                    return render_items
                 end,
             })
         end,
@@ -169,13 +167,13 @@ return {
             require('lualine').setup({
                 options = {
                     theme = "catppuccin",
-                    component_separators = '|',
-                    section_separators = { left = signs.right, right = signs.left },
+                    --[[ component_separators = '|',
+                    section_separators = { left = signs.right, right = signs.left }, ]]
                     globalstatus = true
                 },
                 sections = {
                     lualine_a = {
-                        { 'mode', separator = { left = signs.left }, right_padding = 2 },
+                        { 'mode' },
                     },
                     lualine_b = { 'filename' },
                     lualine_c = {
@@ -194,7 +192,7 @@ return {
                     lualine_x = { 'encoding', 'fileformat', 'filetype' },
                     lualine_y = { 'progress' },
                     lualine_z = {
-                        { 'location', separator = { right = signs.right }, left_padding = 2 },
+                        { 'location' },
                     },
                 },
                 inactive_sections = {
