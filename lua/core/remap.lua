@@ -1,7 +1,7 @@
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
-vim.keymap.set("n", "<leader>pp", vim.cmd.Ex, { desc = "Open netrw" })
+--vim.keymap.set("n", "<leader>pp", vim.cmd.Ex, { desc = "Open netrw" })
 
 vim.keymap.set('t', "<Esc>", "<C-\\><C-n>", { desc = "Terminal: Return to normal mode" })
 
