@@ -23,12 +23,12 @@ vim.keymap.set("n", "<C-up>", ":<C-U>TmuxNavigateUp<cr>", { desc = "Goto top win
 vim.keymap.set("n", "<C-right>", ":<C-U>TmuxNavigateRight<cr>", { desc = "Goto right window" })
 vim.keymap.set("n", "<C-/>", ":<C-U>TmuxNavigatePrevious<cr>", { desc = "Goto previous window" })
 
-vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { desc = "Vertical split" })
-vim.keymap.set("n", "<leader>wh", ":split<CR>", { desc = "Horizontal split" })
-vim.keymap.set("n", "<leader>wq", ":close<CR>", { desc = "Close window" })
-vim.keymap.set("n", "<leader>wo", ":only<CR>", { desc = "Close other windows" })
-vim.keymap.set("n", "<leader>wx", ":wincmd x<CR>", { desc = "Swap windows" })
+vim.keymap.set("n", "<leader>wv", ":vsplit<CR>", { desc = "[v]ertical split" })
+vim.keymap.set("n", "<leader>wh", ":split<CR>", { desc = "[h]orizontal split" })
+vim.keymap.set("n", "<leader>wc", ":close<CR>", { desc = "[c]lose window" })
+vim.keymap.set("n", "<leader>wo", ":only<CR>", { desc = "Close [o]ther windows" })
+vim.keymap.set("n", "<leader>ws", ":wincmd x<CR>", { desc = "[s]wap windows" })
 
-vim.keymap.set("n", "<leader>fp", ":silent %!npx prettier --stdin-filepath %<CR>", { desc = "Format file with prettier" })
+--vim.keymap.set("n", "<leader>fp", ":silent %!npx prettier --stdin-filepath %<CR>", { desc = "Format file with prettier" })
 
-vim.keymap.set("n", "<leader>ll", ":set wrap!<CR>", { desc = "Toggle line wrap" })
+vim.keymap.set("n", "<leader>tl", ":set wrap!<CR>", { desc = "[t]oggle [l]ine wrap" })
