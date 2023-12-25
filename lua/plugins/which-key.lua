@@ -23,6 +23,13 @@ return {
                 ['<leader>w'] = { name = '[w]indow', _ = 'which_key_ignore' },
                 ['<leader>W'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
             }
+
+            -- register which-key VISUAL mode
+            -- required for visual <leader>hs (hunk stage) to work
+            wk.register({
+                ['<leader>'] = { name = 'VISUAL <leader>' },
+                ['<leader>h'] = { 'Git [H]unk' },
+            }, { mode = 'v' })
         end
     }
 }

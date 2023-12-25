@@ -1,18 +1,67 @@
+local telescope_builtin = require('telescope.builtin')
+local border_type = "single"
+
 require("mason").setup({
     ui = {
-        border = "single",
+        border = border_type,
     }
 })
 
 require("mason-lspconfig").setup({
     ensure_installed = {
         "lua_ls",
-        "volar",
-        --"tsserver",
-        "rust_analyzer",
     }
 })
 
+local on_attach = function(_, bufnr)
+    local nmap = function(keys, func, desc)
+        if desc then
+            desc = 'LSP: ' .. desc
+        end
+        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
+    end
+
+    -- Keybinds
+    --  Info
+    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+    nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+
+    --  Navigation
+    nmap(']d', vim.diagnostic.goto_next, 'Goto next Diagnostic')
+    nmap('[d', vim.diagnostic.goto_prev, 'Goto previous Diagnostic')
+
+    nmap('gd', telescope_builtin.lsp_definitions, '[g]oto [d]efinition')
+    nmap('gr', telescope_builtin.lsp_references, '[g]oto [r]eferences')
+    nmap('gI', telescope_builtin.lsp_implementations, '[g]oto [I]mplementations')
+
+    nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration]')
+
+    --  Code
+    nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
+    nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
+    nmap('<leader>ct', telescope_builtin.lsp_type_definitions, '[t]ype definition')
+    nmap('<leader>cs', telescope_builtin.lsp_document_symbols, 'Document [s]ymbols')
+    nmap('<leader>cd', vim.diagnostic.open_float, 'Hover [d]iagnostic Info')
+    nmap('<leader>cf', vim.lsp.buf.format, '[f]ormat current buffer with LSP')
+
+    -- Workspace keybinds
+    nmap('<leader>Ws', telescope_builtin.lsp_dynamic_workspace_symbols, '[W]orkspace [s]ymbols')
+    nmap('<leader>Wa', vim.lsp.buf.add_workspace_folder, '[W]orkspace [a]dd Folder')
+    nmap('<leader>Wr', vim.lsp.buf.remove_workspace_folder, '[W]orkspace [r]emove Folder')
+    nmap('<leader>Wl', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, '[W]orkspace [l]ist Folders')
+
+    -- Commands
+    -- Create a command `:Format` local to the LSP buffer
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+        vim.lsp.buf.format()
+    end, { desc = 'Format current buffer with LSP' })
+end
+
+require("neodev").setup({})
+
+-- TODO: is this working? keyword "didChangeWatchedFiles"
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true;
 
@@ -20,30 +69,6 @@ local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities();
 cmp_capabilities.textDocument.completion.dynamicRegistration = true;
 
 capabilities = vim.tbl_extend("force", capabilities, cmp_capabilities)
-
-local on_attach = function(client, _)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "LSP: Go to Definition" })
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "LSP: Hover" })
-
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, { desc = "LSP: Go to Next Diagnostic" })
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, { desc = "LSP: Go to Previous Diagnostic" })
-
-    vim.keymap.set("n", "<leader>dn", vim.lsp.buf.rename, { desc = "LSP: Rename" })
-    vim.keymap.set("n", "<leader>da", vim.lsp.buf.code_action, { desc = "LSP: Code Action" })
-    vim.keymap.set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "LSP: Open Diagnostic" })
-    vim.keymap.set("n", "<leader>di", vim.lsp.buf.implementation, { desc = "LSP: Go to Implementation" })
-    vim.keymap.set("n", "<leader>dr", vim.lsp.buf.references, { desc = "LSP: Show References" })
-    vim.keymap.set("n", "<leader>dt", vim.lsp.buf.type_definition, { desc = "LSP: Go to Type Definition" })
-    vim.keymap.set("n", "<leader>de", require('telescope.builtin').diagnostics, { desc = "LSP: Get all Diagnostics" })
-
-    if client.name == "eslint" then
-        vim.keymap.set("n", "<leader>df", ":EslintFixAll<cr>", { desc = "LSP: Format", remap = true })
-    else
-        vim.keymap.set("n", "<leader>df", vim.lsp.buf.format, { desc = "LSP: Format" })
-    end
-end
-
-require("neodev").setup({})
 
 local lspconfig = require("lspconfig")
 require("mason-lspconfig").setup_handlers({
@@ -71,6 +96,8 @@ require("mason-lspconfig").setup_handlers({
                         buffer = bufnr,
                         command = "EslintFixAll"
                     })
+                    vim.keymap.set("n", "<leader>cf", ":EslintFixAll<cr>",
+                        { desc = "LSP: Format with Eslint", remap = true })
                 end,
                 capabilities = capabilities,
             }
@@ -83,23 +110,21 @@ require("mason-lspconfig").setup_handlers({
     end,
 })
 
--- use telescope for lsp
-local telescope_builtin = require("telescope.builtin")
+-- set lsp handlers to use telescope
 vim.lsp.handlers["textDocument/definition"] = telescope_builtin.lsp_definitions;
 vim.lsp.handlers["textDocument/references"] = telescope_builtin.lsp_references;
 vim.lsp.handlers["textDocument/typeDefinition"] = telescope_builtin.lsp_type_definitions;
 
--- TODO: Add in own file
 -- add border around LSP Info
-require("lspconfig.ui.windows").default_options.border = "single"
+require("lspconfig.ui.windows").default_options.border = border_type
 
 -- add border around LSP Hover
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
     vim.lsp.handlers.hover, {
         -- Use a sharp border with `FloatBorder` highlights
-        border = "single",
+        border = border_type,
         -- add the title in hover float window
-        title = "hover"
+        title = "Hover"
     }
 )
 
@@ -107,12 +132,12 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(
 vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
     vim.lsp.handlers.signature_help, {
         -- Use a sharp border with `FloatBorder` highlights
-        border = "single"
+        border = border_type
     }
 )
 
 vim.diagnostic.config({
-    float = { border = "single" }
+    float = { border = border_type }
 })
 
 
