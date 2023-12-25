@@ -52,4 +52,4 @@ vim.keymap.set("n", "<leader>ws", ":wincmd x<CR>", { desc = "[s]wap windows" })
 
 --vim.keymap.set("n", "<leader>fp", ":silent %!npx prettier --stdin-filepath %<CR>", { desc = "Format file with prettier" })
 
-vim.keymap.set("n", "<leader>tl", ":set wrap!<CR>", { desc = "[t]oggle [l]ine wrap" })
+vim.keymap.set("n", "<leader>Tw", ":set wrap!<CR>", { desc = "[T]oggle line [w]rap" })
