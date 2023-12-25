@@ -15,6 +15,27 @@ vim.keymap.set("n", "<M-down>", ":tabclose<CR>", { desc = "Close tab" })
 --vim.keymap.set("n", "<C-up>", ":wincmd k<CR>", { desc = "Goto top window" })
 --vim.keymap.set("n", "<C-right>", ":wincmd l<CR>", { desc = "Goto right window" })
 
+vim.keymap.set("v", "<S-down>", ":m '>+1<CR>gv=gv", { desc = "Move selection one line down" })
+vim.keymap.set("v", "<S-up>", ":m '<-2<CR>gv=gv", { desc = "Move selection one line up" })
+
+-- keep cursor in same spot after using 'J'
+vim.keymap.set("n", "J", "mzJ`z")
+
+-- keep cursor in middle with half page jumping
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
+vim.keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- keep search terms in the middle
+vim.keymap.set("n", "n", "nzzzv")
+vim.keymap.set("n", "N", "Nzzzv")
+
+vim.keymap.set("x", "<leader>p", "\"_dP", { desc = "delete into void register, [p]aste" })
+
+vim.keymap.set({ "n", "v" }, "<leader>y", "\"+y", { desc = "[y]ank into clipboard" })
+vim.keymap.set("n", "<leader>Y", "\"+Y", { desc = "[Y]ank line into clipboard" })
+
+vim.keymap.set({ "n", "v" }, "<leader>d", "\"_d", { desc = "[d]elete into void register" })
+
 -- Tmux navigator
 vim.g.tmux_navigator_no_mappings = 1
 vim.keymap.set("n", "<C-left>", ":<C-U>TmuxNavigateLeft<cr>", { desc = "Goto left window" })
