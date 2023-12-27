@@ -1,8 +1,8 @@
 local signs = {
-    error = "󰅙",
-    warn = "",
-    info = "",
-    hint = "󰌵",
+    error = " ",
+    warn = " ",
+    info = " ",
+    hint = "󰌵 ",
 
     left = "",
     right = "",

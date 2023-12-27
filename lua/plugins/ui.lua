@@ -106,7 +106,7 @@ return {
                                 "%06x",
                                 vim.api.nvim_get_hl_by_name("DiagnosticSign" .. severity, true)["foreground"]
                             )
-                        table.insert(render_items, { icon .. " " .. n .. " ", guifg = fg })
+                        table.insert(render_items, { icon .. n .. " ", guifg = fg })
                     end
                 end
                 return render_items
@@ -182,10 +182,10 @@ return {
                         {
                             'diagnostics',
                             symbols = {
-                                error = signs.error .. " ",
-                                warn = signs.warn .. " ",
-                                info = signs.info .. " ",
-                                hint = signs.hint .. " ",
+                                error = signs.error,
+                                warn = signs.warn,
+                                info = signs.info,
+                                hint = signs.hint,
                             }
                         }
                     },
