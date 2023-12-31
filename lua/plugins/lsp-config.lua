@@ -46,7 +46,7 @@ return {
                 nmap('gD', vim.lsp.buf.declaration, '[g]oto [D]eclaration]')
 
                 --  Code
-                nmap('<leader>rn', vim.lsp.buf.rename, '[r]e[n]ame')
+                nmap('<leader>r', vim.lsp.buf.rename, '[r]ename')
                 nmap('<leader>ca', vim.lsp.buf.code_action, '[c]ode [a]ction')
                 nmap('<leader>ct', telescope_builtin.lsp_type_definitions, '[t]ype definition')
                 nmap('<leader>cs', telescope_builtin.lsp_document_symbols, 'Document [s]ymbols')

@@ -13,12 +13,10 @@ return {
 
             wk.register {
                 ['<leader>c'] = { name = '[c]ode', _ = 'which_key_ignore' },
-                ['<leader>f'] = { name = '[f]ile', _ = 'which_key_ignore' },
                 ['<leader>g'] = { name = '[g]it', _ = 'which_key_ignore' },
                 ['<leader>h'] = { name = 'Git [h]unk', _ = 'which_key_ignore' },
-                ['<leader>r'] = { name = '[r]ename', _ = 'which_key_ignore' },
                 ['<leader>s'] = { name = '[s]earch', _ = 'which_key_ignore' },
-                ['<leader>t'] = { name = '[tree]', _ = 'which_key_ignore' },
+                ['<leader>t'] = { name = '[t]ree', _ = 'which_key_ignore' },
                 ['<leader>T'] = { name = '[T]oggle', _ = 'which_key_ignore' },
                 ['<leader>w'] = { name = '[w]indow', _ = 'which_key_ignore' },
                 ['<leader>W'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
