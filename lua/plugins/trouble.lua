@@ -12,7 +12,7 @@ return {
             vim.keymap.set('n', keys, func, { desc = desc })
         end
 
-        nmap("<leader>xx", function() t.toggle() end, "Trouble: Toggle List")
+        nmap("<leader>xx", function() t.toggle() end, "Toggle List")
         nmap("<leader>xw", function() t.toggle("workspace_diagnostics") end, "[w]orkspace Diagnostics")
         nmap("<leader>xd", function() t.toggle("document_diagnostics") end, "[d]ocument Diagnostics")
         nmap("<leader>xq", function() t.toggle("quickfix") end, "[q]uickfix")
