@@ -9,21 +9,22 @@ return {
                 transparent_background = true,
                 integrations = {
                     cmp = true,
+                    fidget = true,
+                    flash = true,
                     gitsigns = true,
-                    nvimtree = true,
-                    telescope = {
-                        enabled = true,
-                    },
-                    mini = false,
+                    harpoon = true,
                     indent_blankline = {
                         enabled = true,
                         scope_color = "sky",
                         colored_indent_levels = false,
                     },
-
-                    mason = true,
-                    harpoon = true,
                     leap = true,
+                    mason = true,
+                    nvimtree = true,
+                    telescope = {
+                        enabled = true,
+                    },
+                    lsp_trouble = true,
                     which_key = true
                 }
             })
