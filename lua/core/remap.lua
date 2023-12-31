@@ -3,6 +3,8 @@ vim.g.maplocalleader = ' '
 
 --vim.keymap.set("n", "<leader>pp", vim.cmd.Ex, { desc = "Open netrw" })
 
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
 vim.keymap.set('t', "<Esc>", "<C-\\><C-n>", { desc = "Terminal: Return to normal mode" })
 
 vim.keymap.set("n", "<M-left>", ":tabprevious<CR>", { desc = "Goto previous tab" })
