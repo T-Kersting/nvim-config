@@ -25,13 +25,14 @@ return {
             }
         },
         keys = {
-            { "<leader>tt", ":Neotree toggle focus<cr>",     desc = "[t]oggle Tree" },
-            { "<leader>tf", ":Neotree focus<cr>",            desc = "[f]ocus Tree" },
-            { "<leader>tr", ":Neotree reveal focus<cr>",     desc = "[r]eveal current file in Tree" },
-            { "<leader>tc", ":Neotree close<cr>",            desc = "[c]lose Tree" },
-            { "<leader>ts", ":Neotree show<cr>",             desc = "[s]how Tree" },
-            { "<leader>tg", ":Neotree git_status focus<cr>", desc = "[g]it status" },
-            { "<leader>tb", ":Neotree buffers focus<cr>",    desc = "open [b]uffers" },
-        }
+            { "<leader>tt", ":Neotree toggle focus reveal<cr>", desc = "[t]oggle Tree" },
+            { "<leader>tf", ":Neotree focus<cr>",               desc = "[f]ocus Tree" },
+            { "<leader>tr", ":Neotree reveal focus<cr>",        desc = "[r]eveal current file in Tree" },
+            { "<leader>tc", ":Neotree close<cr>",               desc = "[c]lose Tree" },
+            { "<leader>ts", ":Neotree show<cr>",                desc = "[s]how Tree" },
+            { "<leader>tg", ":Neotree git_status focus<cr>",    desc = "[g]it status" },
+            { "<leader>tb", ":Neotree buffers focus<cr>",       desc = "open [b]uffers" },
+        },
+        lazy = false,
     },
 }
