@@ -20,7 +20,8 @@ return {
                     },
                     leap = true,
                     mason = true,
-                    nvimtree = true,
+                    -- nvimtree = true,
+                    neotree = true,
                     telescope = {
                         enabled = true,
                     },

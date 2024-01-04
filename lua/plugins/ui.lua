@@ -1,8 +1,7 @@
 return {
     -- highlight the word under the cursor
     { "RRethy/vim-illuminate" },
-
-    {
+    --[[ {
         "nvim-tree/nvim-tree.lua",
         version = "*",
         dependencies = {
@@ -72,7 +71,7 @@ return {
             vim.keymap.set("n", "<leader>tr", api.tree.reload, { desc = "Refresh NvimTree" })
             vim.keymap.set("n", "<leader>tl", api.tree.collapse_all, { desc = "Collapse NvimTree" })
         end
-    },
+    }, ]]
 
     {
         "b0o/incline.nvim",
