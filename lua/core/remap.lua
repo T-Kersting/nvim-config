@@ -7,6 +7,16 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 
 vim.keymap.set('t', "<Esc>", "<C-\\><C-n>", { desc = "Terminal: Return to normal mode" })
 
+-- Remap for dealing with word wrap
+vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+vim.keymap.set('n', '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('n', '<down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
+
+--[[ vim.keymap.set('i', '<up>', "v:count == 0 ? '<c-\\><c-o>gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set('i', '<down>', "v:count == 0 ? '<c-\\><c-o>gj' : 'j'", { expr = true, silent = true }) ]]
+
 vim.keymap.set("n", "<M-left>", ":tabprevious<CR>", { desc = "Goto previous tab" })
 vim.keymap.set("n", "<M-right>", ":tabnext<CR>", { desc = "Goto next tab" })
 vim.keymap.set("n", "<M-up>", ":tabnew<CR>", { desc = "New tab" })
