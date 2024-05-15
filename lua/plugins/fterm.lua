@@ -1,7 +1,7 @@
 return {
     {
         "numToStr/FTerm.nvim",
-        config = {
+        opts = {
             border = 'single',
             dimensions = {
                 height = 0.9,

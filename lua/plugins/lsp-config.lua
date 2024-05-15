@@ -4,7 +4,7 @@ return {
     {
         "williamboman/mason.nvim",
         build = ":MasonUpdate",
-        config = {
+        opts = {
             ui = {
                 border = border_type
             }
@@ -12,7 +12,7 @@ return {
     },
     {
         "williamboman/mason-lspconfig.nvim",
-        config = {
+        opts = {
             ensure_installed = {
                 "lua_ls",
             }
