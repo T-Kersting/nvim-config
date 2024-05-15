@@ -68,32 +68,25 @@ return {
                 end, { desc = 'Format current buffer with LSP' })
             end
 
-            -- TODO: is this working? keyword "didChangeWatchedFiles"
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities.workspace.didChangeWatchedFiles.dynamicRegistration = true;
-
-            local cmp_capabilities = require("cmp_nvim_lsp").default_capabilities();
-            cmp_capabilities.textDocument.completion.dynamicRegistration = true;
-
-            capabilities = vim.tbl_extend("force", capabilities, cmp_capabilities)
-
+            local mason_registry = require('mason-registry')
+            local vue_language_server_path = mason_registry.get_package('vue-language-server'):get_install_path() ..
+                '/node_modules/@vue/language-server'
+            local capabilities = require("cmp_nvim_lsp").default_capabilities();
             local lspconfig = require("lspconfig")
             require("mason-lspconfig").setup_handlers({
                 function(server_name)
-                    if server_name == "volar" then
-                        lspconfig.volar.setup {
-                            on_attach = on_attach,
-                            capabilities = capabilities,
-                            filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue', 'json' },
-                            settings = {
-                                vue = {
-                                    complete = {
-                                        casing = {
-                                            tags = "autoKebab"
-                                        }
+                    if server_name == "tsserver" then
+                        lspconfig.tsserver.setup {
+                            init_options = {
+                                plugins = {
+                                    {
+                                        name = '@vue/typesrcipt-plugin',
+                                        location = vue_language_server_path,
+                                        languages = { 'vue' }
                                     }
                                 }
-                            }
+                            },
+                            filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
                         }
                     elseif server_name == 'eslint' then
                         lspconfig.eslint.setup {
