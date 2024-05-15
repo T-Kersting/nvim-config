@@ -80,7 +80,7 @@ return {
                             init_options = {
                                 plugins = {
                                     {
-                                        name = '@vue/typesrcipt-plugin',
+                                        name = '@vue/typescript-plugin',
                                         location = vue_language_server_path,
                                         languages = { 'vue' }
                                     }
