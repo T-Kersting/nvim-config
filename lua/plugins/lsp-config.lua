@@ -75,7 +75,17 @@ return {
             local lspconfig = require("lspconfig")
             require("mason-lspconfig").setup_handlers({
                 function(server_name)
-                    if server_name == "tsserver" then
+                    if server_name == "tailwindcss" then
+                        lspconfig.tailwindcss.setup {
+                            settings = {
+                                tailwindCSS = {
+                                    experimental = {
+                                        classRegex = { { "clsx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)" } }
+                                    }
+                                }
+                            }
+                        }
+                    elseif server_name == "tsserver" then
                         lspconfig.tsserver.setup {
                             init_options = {
                                 plugins = {
