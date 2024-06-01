@@ -82,11 +82,13 @@ return {
                                     {
                                         name = '@vue/typescript-plugin',
                                         location = vue_language_server_path,
-                                        languages = { 'vue' }
-                                    }
-                                }
+                                        languages = { 'vue' },
+                                    },
+                                },
                             },
                             filetypes = { 'typescript', 'javascript', 'javascriptreact', 'typescriptreact', 'vue' },
+                            on_attach = on_attach,
+                            capabilities = capabilities,
                         }
                     elseif server_name == 'eslint' then
                         lspconfig.eslint.setup {
